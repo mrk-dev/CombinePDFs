@@ -21,5 +21,6 @@ $Shortcut = $Shell.CreateShortcut($ShortcutPath)
 $Shortcut.TargetPath = $TargetPath
 $Shortcut.Arguments = $TargetArgs
 $Shortcut.WindowStyle = $WindowStyle
+$Shortcut.WorkingDirectory = Split-Path -Path $TargetPath
 $Shortcut.IconLocation = "$IconLocation, $IconArrayIndex"
 $Shortcut.Save()
