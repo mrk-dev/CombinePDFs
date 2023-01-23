@@ -1,8 +1,16 @@
+'''
+Name       : CombinePDFs.py
+Description: Module with methods to combine PDFs
+Date       : 22-Jan-2023
+Author     : M. Schmidt
+'''
+
 import sys
 try:
     from PyPDF2 import PdfFileReader, PdfFileWriter
 except ImportError:
-    from pyPdf import PdfFileReader, PdfFileWriter
+    from pypdf import PdfFileReader, PdfFileWriter
+
 
 def pdf_cat(input_files, output_stream):
     input_streams = []
@@ -22,6 +30,7 @@ def pdf_cat(input_files, output_stream):
     finally:
         for f in input_streams:
             f.close()
+
 
 if __name__ == '__main__':
     if sys.platform == "win32":
