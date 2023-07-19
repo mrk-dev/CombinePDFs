@@ -5,35 +5,38 @@ Date       : 22-Jan-2023
 Author     : M. Schmidt
 '''
 
+import argparse
 import sys
-try:
-    from PyPDF2 import PdfFileReader, PdfFileWriter
-except ImportError:
-    from pypdf import PdfFileReader, PdfFileWriter
+from pypdf import PdfMerger
 
 
-def pdf_cat(input_files, output_stream):
-    input_streams = []
+def parse_args():
+    parser = argparse.ArgumentParser(
+        prog='Combine PDFs',
+        description='Merges PDF files from a folder to a single file',
+        epilog='Thank you and have a nice day! :)')
+
+    parser.add_argument('inputFiles', type=str,
+        nargs='*', help='Two or more PDF files to be merged')
+    parser.add_argument('output', type=str,
+        help='Full path to output PDF file')
+
+    args = parser.parse_args(sys.argv[1:])
+
+    return args
+
+
+def pdf_cat(input_files, output_file):
     try:
-        # First open all the files, then produce the output file, and
-        # finally close the input files. This is necessary because
-        # the data isn't read from the input files until the write
-        # operation. Thanks to
-        # https://stackoverflow.com/questions/6773631/problem-with-closing-python-pypdf-writing-getting-a-valueerror-i-o-operation/6773733#6773733
-        for input_file in input_files:
-            input_streams.append(open(input_file, 'rb'))
-        writer = PdfFileWriter()
-        for reader in map(PdfFileReader, input_streams):
-            for n in range(reader.getNumPages()):
-                writer.addPage(reader.getPage(n))
-        writer.write(output_stream)
-    finally:
-        for f in input_streams:
-            f.close()
+        merger = PdfMerger()
+        for pdf in input_files:
+            merger.append(pdf)
+        merger.write(output_file)
+        merger.close()
+    except:
+        print("Error merging PDFs")
 
 
 if __name__ == '__main__':
-    if sys.platform == "win32":
-        import os, msvcrt
-        msvcrt.setmode(sys.stdout.fileno(), os.O_BINARY)
-    pdf_cat(sys.argv[1:], sys.stdout)
+    cfg = parse_args()
+    pdf_cat(input_files=cfg.inputFiles, output_file=cfg.output)

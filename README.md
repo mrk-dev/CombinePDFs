@@ -24,6 +24,6 @@ Python 3.10.x
 To build executable:
 
 1. Open Python command window.
-2. cd to this folder.
+2. Use the cd command to enter the folder containing the combine.py file.
 3. Run the following
-```pyinstall --onefile combine.py```
+```pyinstaller --onefile combine.py```

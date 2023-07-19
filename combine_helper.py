@@ -49,7 +49,6 @@ def monitorpdfs(source_folder, output_file, delay_seconds=5):
 
 def writepdf(outfile, pdfs):
     print("Outfile-->{0}".format(outfile))
-    outfile = open(outfile, "wb")
     CombinePDFs.pdf_cat(pdfs, outfile)
     print("Done.")
 
