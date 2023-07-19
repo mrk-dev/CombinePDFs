@@ -6,10 +6,14 @@ from combine_gui import Application, create_window
 
 def setup_args():
     parser = argparse.ArgumentParser("combine.py")
-    parser.add_argument("pdf_folder", type=str, help="folder containing pdf files")
-    parser.add_argument("outfile_name", type=str, help="output pdf file name")
-    parser.add_argument("-w", "--window", action="store_true", dest="window", help="start with GUI")
-    parser.add_argument("-m", "--monitor", type=int, metavar="N", dest="monitor", default=-1, help="monitor source pdf folder every N seconds and automatically generate combined file.")
+    parser.add_argument("pdf_folder", type=str, 
+        help="folder containing pdf files")
+    parser.add_argument("outfile_name", type=str, 
+        help="output pdf file name")
+    parser.add_argument("-w", "--window", action="store_true", dest="window", 
+        help="start with GUI")
+    parser.add_argument("-m", "--monitor", type=int, metavar="N", dest="monitor", default=-1, 
+        help="monitor source pdf folder every N seconds and automatically generate combined file.")
     
     return parser
 
